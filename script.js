@@ -10,7 +10,15 @@ function getDogImage(numberOfDogs) {
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
-      
+    .catch(error => alert('Something went wrong. Try again later.'));
+}
+
+function getDogBreed(breedOfDog){
+  let baseUrl = 'https://dog.ceo/api/breed/';
+  fetch(`${baseUrl}${breedOfDog}/images`)
+    .then(response => response.json())
+    .then(responseJson =>
+      displayResults(responseJson))
     .catch(error => alert('Something went wrong. Try again later.'));
 }
 
@@ -43,9 +51,16 @@ function watchForm() {
     console.log(newInput);   
     getDogImage(newInput);   
   });  
+
+  $('.js-breed-form').submit(event => {
+    event.preventDefault();
+    let newBreed = $('#breed').val();
+    getDogBreed(newBreed);
+  });
 }
 
 $(function() {
   console.log('App loaded!');
   watchForm();
-});
+}); 
+
